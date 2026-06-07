@@ -2,93 +2,130 @@
 
 ![Arduino](https://img.shields.io/badge/Platform-Arduino-blue)
 ![Language](https://img.shields.io/badge/Language-C%2B%2B-orange)
-![Embedded Systems](https://img.shields.io/badge/Domain-Embedded%20Systems-green)
+![Embedded%20Systems](https://img.shields.io/badge/Domain-Embedded%20Systems-green)
 ![Status](https://img.shields.io/badge/Status-Completed-brightgreen)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 
-## Project Overview
-
-The **Embedded Multi-Sensor Monitoring and Control System** is a real-time data acquisition and automation project developed using **Arduino Uno**.
-
-The system continuously monitors environmental conditions using multiple sensors and automatically controls actuators based on predefined threshold values.
-
-This project demonstrates:
-
-* Real-time sensor interfacing
-* Embedded monitoring
-* Automated control systems
-* Data acquisition techniques
-* Industrial automation concepts
-* Decision-based actuator control
+Arduino-based embedded automation system featuring real-time multi-sensor data acquisition, environmental monitoring, and threshold-based control of motors and alert devices.
 
 ---
 
-## Problem Statement
+# Project Overview
 
-Design and develop a microcontroller-based Data Acquisition and Control System capable of acquiring real-time data from multiple sensors and automatically controlling output devices according to predefined conditions.
+The **Embedded Multi-Sensor Monitoring and Control System** is a real-time embedded automation project developed using **Arduino Uno (ATmega328P)**.
+
+The system continuously acquires data from multiple sensors and automatically controls various actuators based on predefined threshold values. It demonstrates practical implementation of embedded monitoring, sensor interfacing, data acquisition, decision-making logic, and automated control systems.
+
+The project integrates:
+
+* IR Sensor for object detection
+* MQ-2 Gas Sensor for gas leakage monitoring
+* LM35 Temperature Sensor for temperature monitoring
+* HC-SR04 Ultrasonic Sensor for distance measurement
+* DC Motor control using L293D Motor Driver
+* Stepper Motor automation
+* LED-based alert indication
+
+All sensor readings and device statuses are displayed in real-time through the Serial Monitor.
 
 ---
 
-## System Architecture
+# Problem Statement
+
+Design and develop a microcontroller-based Data Acquisition and Control System capable of acquiring real-time data from multiple sensors and automatically controlling output devices according to predefined threshold conditions.
+
+The system should continuously monitor environmental conditions, process sensor data, execute control actions, and provide real-time feedback to the user.
+
+---
+
+# Project Specifications
+
+| Parameter             | Value                               |
+| --------------------- | ----------------------------------- |
+| Platform              | Arduino Uno                         |
+| Microcontroller       | ATmega328P                          |
+| Programming Language  | Embedded C++                        |
+| Simulation Software   | Proteus Professional                |
+| Sensors Used          | 4                                   |
+| Actuators Used        | 3                                   |
+| Temperature Threshold | 20°C                                |
+| Distance Threshold    | 15 cm                               |
+| Serial Baud Rate      | 9600 bps                            |
+| Project Type          | Data Acquisition and Control System |
+
+---
+
+# System Architecture
 
 ```text
-                 +------------------+
-                 |   Arduino Uno    |
-                 +------------------+
-                          |
-      -------------------------------------------------
-      |            |             |                   |
-      |            |             |                   |
-   IR Sensor    MQ-2 Gas     LM35 Sensor      Ultrasonic
-                Sensor                         Sensor
-      |            |             |                   |
-      |            |             |                   |
- Object       Gas Leakage   Temperature        Distance
-Detection      Detection      Monitoring      Measurement
-      |            |             |                   |
-      -------------------------------------------------
-                          |
-          --------------------------------
-          |              |               |
-          |              |               |
-        LED          DC Motor      Stepper Motor
-      Alert           Control        Automation
+                  +------------------+
+                  |   Arduino Uno    |
+                  +------------------+
+                           |
+      --------------------------------------------------
+      |              |              |                  |
+      |              |              |                  |
+   IR Sensor      MQ-2 Gas      LM35 Sensor      HC-SR04 Sensor
+ Object Detection   Sensor      Temperature      Distance
+                   Monitoring    Monitoring      Measurement
+      |              |              |                  |
+      --------------------------------------------------
+                           |
+          ---------------------------------------
+          |                 |                   |
+          |                 |                   |
+        LED             DC Motor         Stepper Motor
+      Alert System      Control           Automation
 ```
 
 ---
 
-## Features
+# Features
 
-* Real-time sensor monitoring
-* Object detection using IR sensor
-* Gas leakage detection with LED alert
-* Temperature-based DC motor control
+* Real-time sensor data acquisition
+* IR-based object detection
+* Gas leakage monitoring and alert indication
+* Temperature-based automatic DC motor control
 * Ultrasonic distance measurement
 * Automatic stepper motor operation
 * Continuous Serial Monitor output
-* Threshold-based automation
-* Embedded control system implementation
+* Threshold-based decision making
+* Embedded automation and control implementation
+* Proteus simulation support
 
 ---
 
-## Components Used
+# Hardware Components
 
-| Component                 | Purpose                   |
-| ------------------------- | ------------------------- |
-| Arduino Uno               | Main Controller           |
-| IR Sensor                 | Object Detection          |
-| MQ-2 Gas Sensor           | Gas Leakage Detection     |
-| LM35 Temperature Sensor   | Temperature Monitoring    |
-| HC-SR04 Ultrasonic Sensor | Distance Measurement      |
-| L293D Motor Driver        | DC Motor Control          |
-| ULN2003 Driver            | Stepper Motor Interface   |
-| DC Motor                  | Automated Cooling/Control |
-| Stepper Motor             | Distance-Based Motion     |
-| LED                       | Warning Indicator         |
+| Component                 | Function                |
+| ------------------------- | ----------------------- |
+| Arduino Uno               | Main Controller         |
+| IR Sensor                 | Object Detection        |
+| MQ-2 Gas Sensor           | Gas Leakage Detection   |
+| LM35 Temperature Sensor   | Temperature Monitoring  |
+| HC-SR04 Ultrasonic Sensor | Distance Measurement    |
+| L293D Motor Driver        | DC Motor Control        |
+| ULN2003 Driver            | Stepper Motor Interface |
+| DC Motor                  | Automated Actuation     |
+| Stepper Motor             | Distance-Based Motion   |
+| LED                       | Alert Indication        |
 
 ---
 
-## Pin Configuration
+# Hardware Specifications
+
+* Microcontroller: ATmega328P
+* Operating Voltage: 5V
+* Motor Driver: L293D
+* Stepper Driver: ULN2003
+* Communication: UART Serial Communication
+* Baud Rate: 9600 bps
+* Temperature Threshold: 20°C
+* Distance Threshold: 15 cm
+
+---
+
+# Pin Configuration
 
 | Arduino Pin | Connected Device        |
 | ----------- | ----------------------- |
@@ -107,125 +144,216 @@ Detection      Detection      Monitoring      Measurement
 
 ---
 
-## Functional Description
+# Functional Description
 
-### 1. IR Sensor
+## 1. IR Sensor Operation
 
-Detects nearby objects.
+The IR sensor continuously detects the presence of nearby objects.
 
-**Condition**
+### Operation
 
-* HIGH → Object Detected
-* LOW → No Object Detected
+**If an object is detected:**
 
----
+```text
+Object Detected
+```
 
-### 2. Gas Sensor and Alert System
+**If no object is detected:**
 
-Monitors gas leakage conditions.
-
-**Condition**
-
-* Gas Detected → LED blinks continuously
-* No Gas → LED remains OFF
+```text
+No Object Detected
+```
 
 ---
 
-### 3. Temperature Monitoring and DC Motor Control
+## 2. Gas Leakage Detection and Alert System
+
+The MQ-2 gas sensor continuously monitors the environment for gas leakage.
+
+### Operation
+
+**If gas leakage is detected:**
+
+```text
+GAS LEAKAGE DETECTED !!!
+```
+
+* LED blinks repeatedly as an emergency warning signal.
+
+**If no gas is detected:**
+
+```text
+No Gas Detected
+```
+
+* LED remains OFF.
+
+---
+
+## 3. Temperature Monitoring and DC Motor Control
 
 The LM35 sensor continuously measures ambient temperature.
 
-**Threshold Temperature:** 20°C
+### Threshold Temperature
 
-**Condition**
+```text
+20°C
+```
 
-* Temperature ≥ 20°C → DC Motor ON
-* Temperature < 20°C → DC Motor OFF
+### Operation
 
----
+**If Temperature ≥ 20°C**
 
-### 4. Ultrasonic Sensor and Stepper Motor Control
+```text
+DC Motor ON
+```
 
-Measures distance between sensor and object.
+The DC motor is activated through the L293D motor driver.
 
-**Threshold Distance:** 15 cm
+**If Temperature < 20°C**
 
-**Condition**
+```text
+DC Motor OFF
+```
 
-* Distance < 15 cm
-
-  * Stepper rotates clockwise
-  * Stepper rotates anticlockwise
-
-* Distance ≥ 15 cm
-
-  * Stepper remains stopped
+The DC motor remains stopped.
 
 ---
 
-## System Workflow
+## 4. Ultrasonic Distance Measurement and Stepper Motor Control
+
+The HC-SR04 sensor continuously measures object distance.
+
+### Threshold Distance
+
+```text
+15 cm
+```
+
+### Operation
+
+**If Distance < 15 cm**
+
+```text
+Object Close
+```
+
+* Stepper motor rotates clockwise.
+* Stepper motor rotates anticlockwise.
+
+**If Distance ≥ 15 cm**
+
+```text
+Object Far
+```
+
+* Stepper motor remains stopped.
+
+---
+
+# System Workflow
 
 ```text
 Start
   |
-Read Sensor Data
+Initialize Arduino
   |
-Process Sensor Values
+Read IR Sensor
   |
-Compare with Thresholds
+Read Gas Sensor
+  |
+Read Temperature Sensor
+  |
+Read Ultrasonic Sensor
+  |
+Compare with Threshold Values
   |
 Execute Control Actions
   |
-Display Status on Serial Monitor
+Display Results on Serial Monitor
   |
 Repeat Continuously
 ```
 
 ---
 
-## Circuit Diagram
+# Circuit Diagram
 
-### Proteus Simulation Circuit
+## Proteus Circuit Design
 
-![Circuit Diagram](Circuit/circuit_diagram.jpg)
+![Circuit Diagram](circuit/circuit_diagram.jpg)
 
----
-
-## Project Demonstration
-
-### Google Drive Project Files
-
-Project Resources:
-
-https://drive.google.com/drive/u/0/folders/1DKsZYU_bfopb9j0VWOTwYdVp9OY8z6Tq
+The complete Proteus project file is available inside the **model** folder.
 
 ---
 
-## Serial Monitor Output
+# Simulation Model
 
-### Output 1
-
-![Output 1](Output/serial_output1.png)
-
-### Output 2
-
-![Output 2](Output/serial_output2.png)
-
----
-
-## Repository Structure
+The Proteus simulation project file is available at:
 
 ```text
-Embedded-Multi-Sensor-Monitoring-and-Control-Systems
+model/data_acquisition_and_control_system.pdsprj
+```
+
+Open the project using **Proteus Professional** and run the simulation to observe real-time operation.
+
+---
+
+# Serial Monitor Output
+
+## Output 1
+
+![Serial Output 1](output/serial_output1.png)
+
+## Output 2
+
+![Serial Output 2](output/serial_output2.png)
+
+---
+
+# How to Run
+
+## Clone Repository
+
+```bash
+git clone https://github.com/LinkwithRithesh/Embedded-Multi-Sensor-Monitoring-and-Control-System.git
+```
+
+## Arduino IDE Setup
+
+1. Open Arduino IDE
+2. Open `data_code.ino`
+3. Select:
+
+```text
+Tools → Board → Arduino Uno
+```
+
+4. Upload the code to Arduino Uno
+5. Open Serial Monitor
+6. Set baud rate to:
+
+```text
+9600
+```
+
+7. Observe sensor readings and actuator responses
+
+---
+
+# Repository Structure
+
+```text
+Embedded-Multi-Sensor-Monitoring-and-Control-System
 │
-├── Circuit
+├── circuit
 │   ├── circuit_diagram.jpg
-│   └── wiring_diagram.PDF
+│   └── wiring_diagram.pdf
 │
-├── Model
-│   └── Data Acquisition and Control System model.pdsprj
+├── model
+│   └── data_acquisition_and_control_system.pdsprj
 │
-├── Output
+├── output
 │   ├── serial_output1.png
 │   └── serial_output2.png
 │
@@ -238,56 +366,77 @@ Embedded-Multi-Sensor-Monitoring-and-Control-Systems
 
 ---
 
-## Applications
+# Applications
 
 * Industrial Monitoring Systems
-* Smart Factory Automation
+* Embedded Automation Systems
 * Environmental Monitoring
-* Safety Alert Systems
+* Smart Safety Systems
 * Sensor-Based Automation
-* Embedded Control Systems
-* Academic Embedded Projects
+* Real-Time Control Systems
+* Educational Embedded Projects
+* Industrial Process Monitoring
 
 ---
 
-## Future Enhancements
+# Future Enhancements
 
 * IoT Integration
-* Wi-Fi Connectivity
+* Wi-Fi Monitoring
 * Cloud Data Logging
 * Mobile Application Interface
-* LCD/OLED Display
-* Remote Monitoring Dashboard
+* LCD/OLED Display Module
+* Web Dashboard Monitoring
+* Wireless Sensor Network
+* Remote Monitoring System
 * Data Analytics Integration
 
 ---
 
-## Technologies Used
+# Learning Outcomes
 
-* Arduino IDE
-* Embedded C/C++
-* Proteus Professional
-* Sensor Interfacing
-* Serial Communication
-* Embedded Automation
-
----
-
-## Learning Outcomes
-
-Through this project, the following concepts were implemented:
+This project demonstrates:
 
 * Sensor Interfacing
-* Real-Time Data Acquisition
 * Embedded System Design
-* Actuator Control
-* Automation Logic
-* Threshold-Based Decision Making
-* Industrial Monitoring Concepts
+* Data Acquisition Techniques
+* Real-Time Monitoring
+* Threshold-Based Automation
+* Motor Driver Interfacing
+* Stepper Motor Control
+* Serial Communication
+* Embedded Decision Making
+* Industrial Automation Concepts
 
 ---
 
-## Author
+# Project Status
+
+✅ Proteus Simulation Completed
+
+✅ Sensor Integration Completed
+
+✅ Real-Time Monitoring Implemented
+
+✅ Actuator Control Implemented
+
+✅ Serial Communication Verified
+
+✅ System Testing Completed
+
+---
+
+# Project Resources
+
+Google Drive Folder:
+
+```text
+https://drive.google.com/drive/u/0/folders/1DKsZYU_bfopb9j0VWOTwYdVp9OY8z6Tq
+```
+
+---
+
+# Author
 
 **Ritheshwaran A**
 
@@ -301,6 +450,8 @@ GitHub: https://github.com/LinkwithRithesh
 
 ---
 
-## License
+# License
 
 This project is licensed under the MIT License.
+
+© 2026 Ritheshwaran A
